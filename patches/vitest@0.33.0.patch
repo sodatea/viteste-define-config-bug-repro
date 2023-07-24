@@ -1,0 +1,22 @@
+diff --git a/dist/config.d.ts b/dist/config.d.ts
+index 9d14ca352736262a2e0af811a09355e55ba3a2ed..ca6e13a03c07a33214c8e1eee950eb0ab3926cba 100644
+--- a/dist/config.d.ts
++++ b/dist/config.d.ts
+@@ -79,8 +79,12 @@ interface UserWorkspaceConfig extends UserConfig$1 {
+ 
+ type UserConfigFn = (env: ConfigEnv) => UserConfig$1 | Promise<UserConfig$1>;
+ type UserConfigExport = UserConfig$1 | Promise<UserConfig$1> | UserConfigFn;
++type UserConfigFnObject = (env: ConfigEnv) => UserConfig$1
++type UserConfigFnPromise = (env: ConfigEnv) => Promise<UserConfig$1>
+ type UserProjectConfigFn = (env: ConfigEnv) => UserWorkspaceConfig | Promise<UserWorkspaceConfig>;
+ type UserProjectConfigExport = UserWorkspaceConfig | Promise<UserWorkspaceConfig> | UserProjectConfigFn;
++declare function defineConfig(config: UserConfig$1): UserConfig$1
++declare function defineConfig(config: Promise<UserConfig$1>): Promise<UserConfig$1>
+ declare function defineConfig(config: UserConfigExport): UserConfigExport;
+ declare function defineProject(config: UserProjectConfigExport): UserProjectConfigExport;
+ declare function defineWorkspace(config: (string | (UserProjectConfigExport & {
+@@ -90,3 +94,4 @@ declare function defineWorkspace(config: (string | (UserProjectConfigExport & {
+ }))[];
+ 
+ export { UserConfigExport, UserConfigFn, UserProjectConfigExport, UserProjectConfigFn, UserWorkspaceConfig, configDefaults, coverageConfigDefaults, defaultExclude, defaultInclude, defineConfig, defineProject, defineWorkspace };
++export { UserConfigFnObject, UserConfigFnPromise }
